@@ -44,7 +44,6 @@ Visit node 3
 Visit node 3
 
 Now, the Stack becomes empty, which means we have visited all the nodes, and our DFS traversal ends.
-
 <h3>Algorithm:</h3>
 <B><ol>
  <li>Construct a Graph with Nodes and Edges</li>
@@ -53,34 +52,6 @@ Now, the Stack becomes empty, which means we have visited all the nodes, and our
  <li>Find its Successors Or neighbors and Check whether the node is visited or not</li>
  <li>If Not Visited, add it to the STACK. Else Call The Function Again Until No more nodes needs to be visited.</li>
 </ol></B>
-
-<h3>Program:</h3>
-```
-
-from collections import deque
-from collections import defaultdict
-
-def dfs(graph,start,visited,path):
-    path.append(start)
-    visited[start]=True
-    for neighbour in graph[start]:
-        if visited[neighbour]==False:
-            dfs(graph,neighbour,visited,path)
-            visited[neighbour]=True
-    return path
-graph=defaultdict(list)
-n,e=map(int,input().split())
-for i in range(e):
-    u,v=map(str,input().split())
-    graph[u].append(v)
-    graph[v].append(u)
-#print(graph)
-start='A'
-visited=defaultdict(bool)
-path=[]
-traversedpath=dfs(graph,start,visited,path)
-print(traversedpath)
-```
 
 <hr>
 <h3>Sample Input</h3>
@@ -115,8 +86,66 @@ F H <BR>
 <h3>Sample Output</h3>
 <hr>
 ['0', '1', '2', '3', '4']
+<hr>
+<h3>Program : </h3>
+<hr>
+
+```
+from collections import deque
+from collections import defaultdict
+
+
+'''
+V E
+FOR EVERY EDGE
+U V
+7 9
+A B
+A C
+A F
+C E
+C F
+C D
+D E
+D G
+G F
+'''
+def bfs(graph,start,visited,path):
+    queue = deque()
+    path.append(start)
+    queue.append(start)
+    visited[start] = True
+    while len(queue) != 0:
+        tmpnode = queue.popleft()
+        for neighbour in graph[tmpnode]:
+          if not visited[neighbour]:
+            path.append(neighbour)
+            queue.append(neighbour)
+            visited[neighbour]=True
+    return path
+
+graph = defaultdict(list)
+v,e = map(int,input().split())
+for i in range(e):
+    u,v=input().split()
+    graph[u].append(v)
+    graph[v].append(u)
+start = '0'
+path = []
+visited = defaultdict(bool)
+traversedpath = bfs(graph,start,visited,path)
+print(traversedpath)
+```
+<hr>
+
+<h3>Output : </h3>
 
 <hr>
-<h3>Result:</h3>
+
+![image](https://github.com/user-attachments/assets/4424db26-7a2d-449d-a93e-b20a46d8047a)
+
+<hr>
+<h3>Result :</h3>
 <hr>
 <p>Thus,a Graph was constructed and implementation of Depth First Search for the same graph was done successfully.</p>
+
